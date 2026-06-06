@@ -19,7 +19,9 @@
 <a href="https://discord.gg/WnCXbauur7" target="_blank">
   <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
 </a>
-<img src="https://img.shields.io/badge/Portfolio-em%20breve%20%2F%20coming%20soon-A277FF?style=for-the-badge&logo=astro&logoColor=white" alt="Portfolio coming soon" />
+<a href="https://lteruyaq.netlify.app" target="_blank">
+  <img src="https://img.shields.io/badge/Portfolio-lteruyaq.netlify.app-A277FF?style=for-the-badge&logo=astro&logoColor=white" alt="Portfolio" />
+</a>
 
 <img src="https://visitcount.itsvg.in/api?id=lteruyaq&icon=0&color=12" alt="Visitor count" />
 
