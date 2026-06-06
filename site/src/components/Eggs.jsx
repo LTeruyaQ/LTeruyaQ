@@ -80,10 +80,23 @@ export function OminososHaunt({ enabled = true }) {
 
   return (
     <div className={'haunt' + (on ? ' on' : '')} aria-hidden="true">
+      {/* shared gradient for the almond eye shape */}
+      <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
+        <defs>
+          <radialGradient id="omEyeGrad" cx="50%" cy="45%" r="62%">
+            <stop offset="0%" stopColor="#fff4ad" />
+            <stop offset="45%" stopColor="#ffd000" />
+            <stop offset="100%" stopColor="#9c7400" />
+          </radialGradient>
+        </defs>
+      </svg>
       {eyes.map((e, i) => (
         <div className="eye" key={i}
-          style={{ left: e.x + '%', top: e.y + '%', width: 46 * e.s + 'px', height: 30 * e.s + 'px' }}>
+          style={{ left: e.x + '%', top: e.y + '%', width: 54 * e.s + 'px', height: 30 * e.s + 'px' }}>
           <div className="eye-ball" style={{ transitionDelay: (i % 7) * 0.04 + 's' }}>
+            <svg className="eye-shape" viewBox="0 0 100 56" preserveAspectRatio="none">
+              <path d="M0,28 Q50,0 100,28 Q50,56 0,28 Z" fill="url(#omEyeGrad)" />
+            </svg>
             <div className="eye-pupil" ref={(el) => (pupils.current[i] = el)} />
           </div>
         </div>
