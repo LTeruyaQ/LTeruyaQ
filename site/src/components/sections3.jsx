@@ -93,17 +93,17 @@ export function BadgeUnion() {
     <section id="union" className="sec-pad">
       <div className="wrap">
         <Reveal>
-          <div className="card" style={{ padding: 0, overflow: 'hidden', position: 'relative' }}>
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(600px circle at 80% 20%, rgba(225,29,42,.16), transparent 60%)' }} />
+          <div className="card om-card" style={{ padding: 0, overflow: 'hidden', position: 'relative' }}>
+            <div className="om-glow" style={{ position: 'absolute', inset: 0 }} />
             <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: 'minmax(0,1.1fr) minmax(0,.9fr)', gap: 30, padding: 'clamp(28px,4vw,52px)', alignItems: 'center' }} className="bu-grid">
               <div>
-                <span className="eyebrow">{t('bu_eye', lang)}</span>
+                <span className="eyebrow om-eyebrow">{t('bu_eye', lang)}</span>
                 <h2 style={{ fontFamily: 'var(--sans)', fontWeight: 700, fontSize: 'clamp(34px,5vw,58px)', letterSpacing: '-.02em', margin: '16px 0 0', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-                  <span style={{ width: 52, height: 52, border: '2px solid var(--red)', borderRadius: 12, display: 'grid', placeItems: 'center', fontFamily: 'var(--mono)', fontSize: 20, fontWeight: 700, color: 'var(--red)', boxShadow: '0 0 22px rgba(225,29,42,.4)' }}>BU</span>
-                  <GlitchText>{t('bu_title', lang)}</GlitchText>
+                  <span style={{ width: 52, height: 52, border: '2px solid var(--om-yellow)', borderRadius: 12, display: 'grid', placeItems: 'center', fontFamily: 'var(--mono)', fontSize: 20, fontWeight: 700, color: 'var(--om-yellow)', boxShadow: '0 0 22px rgba(255,195,0,.4)' }}>OM</span>
+                  <GlitchText className="om-title">{t('bu_title', lang)}</GlitchText>
                 </h2>
                 <p className="sec-sub" style={{ maxWidth: 540 }}>{t('bu_sub', lang)}</p>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); }} className="btn btn-red" style={{ marginTop: 26 }}>{t('bu_cta', lang)} <span className="arw">→</span></a>
+                <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); }} className="btn btn-om" style={{ marginTop: 26 }}>{t('bu_cta', lang)} <span className="arw">→</span></a>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {[['design', 'prototype', 'ship'], ['.NET', 'Flutter', 'AWS'], ['idea', '→', 'product']].map((row, ri) => (

@@ -336,6 +336,23 @@ body.booting { overflow: hidden; }
 .nf-card:hover { z-index: 5; }
 .nf-card:hover .card { transform: scale(1.04); }
 
+/* ── Ominiosos card (yellow / black theme override) ─────── */
+:root { --om-yellow: #ffc300; --om-yellow-bright: #ffd633; }
+.om-card { border-color: rgba(255,195,0,.28); }
+.om-card:hover { border-color: rgba(255,195,0,.5);
+  box-shadow: 0 18px 50px rgba(0,0,0,.5), 0 0 44px rgba(255,195,0,.14); }
+.om-glow { background: radial-gradient(600px circle at 80% 20%, rgba(255,195,0,.20), transparent 60%); }
+.om-eyebrow { color: var(--om-yellow); }
+.om-eyebrow::before { background: var(--om-yellow); box-shadow: 0 0 10px var(--om-yellow); }
+.om-title { color: var(--om-yellow); }
+.om-card .glitch[data-on="1"]::before { color: var(--om-yellow); }
+.om-card .glitch[data-on="1"]::after  { color: #8f6b00; }
+.btn-om { background: var(--om-yellow); border-color: var(--om-yellow); color: #0a0a0a; }
+.btn-om:hover { background: var(--om-yellow-bright); border-color: var(--om-yellow-bright);
+  color: #0a0a0a; box-shadow: 0 8px 30px rgba(255,195,0,.45); transform: translateY(-2px); }
+.om-card .chip:hover { border-color: var(--om-yellow); color: #fff; }
+.om-card .chip .dot { background: var(--om-yellow); }
+
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 920px) {
   .nav-links { display: none !important; }

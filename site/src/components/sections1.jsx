@@ -173,7 +173,7 @@ function TerminalCard() {
 export function About() {
   const { lang } = useL();
   const stats = [
-    { to: 8, suffix: '+', k: 'stat_years' },
+    { to: 5, suffix: '+', k: 'stat_years' },
     { to: 40, suffix: '+', k: 'stat_proj' },
     { to: 99.9, suffix: '%', k: 'stat_up', dec: 1 },
     { to: 120, suffix: '+', k: 'stat_auto' },
