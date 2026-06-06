@@ -353,6 +353,55 @@ body.booting { overflow: hidden; }
 .om-card .chip:hover { border-color: var(--om-yellow); color: #fff; }
 .om-card .chip .dot { background: var(--om-yellow); }
 
+/* ── Easter egg 1: Ominiosos haunt (yellow eyes) ─────────── */
+.haunt { position: fixed; inset: 0; z-index: 40; pointer-events: none;
+  opacity: 0; transition: opacity .8s var(--ease); }
+.haunt.on { opacity: 1; }
+.haunt-tint { position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(20,16,0,0) 32%, rgba(8,7,0,.6) 100%); }
+.eye { position: absolute; width: 46px; height: 30px; transform: translate(-50%,-50%); }
+.eye-ball { position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, #fff4ad 0%, #ffd000 42%, #9c7400 100%);
+  box-shadow: 0 0 18px rgba(255,208,0,.75), inset 0 0 9px rgba(0,0,0,.45);
+  transform: scaleY(0); transform-origin: center; transition: transform .5s var(--ease); }
+.haunt.on .eye-ball { transform: scaleY(1); }
+.eye-pupil { position: absolute; left: 50%; top: 50%; width: 36%; height: 58%;
+  border-radius: 50%; background: #0a0a0a; transform: translate(-50%,-50%);
+  box-shadow: 0 0 6px rgba(0,0,0,.8); transition: transform .08s linear; }
+
+/* ── Easter egg 2: São Paulo tricolor flag ──────────────── */
+.sp-flag { display: block; width: 54px; height: 36px; border-radius: 3px;
+  overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.18); }
+.sp-flag i { display: block; height: 33.34%; }
+.sp-flag .r { background: #e11d2a; }
+.sp-flag .k { background: #0a0a0a; }
+.sp-flag .w { background: #f4f4f5; }
+.sp-egg { position: fixed; z-index: 45; padding: 0; border: 0; background: transparent;
+  cursor: pointer; opacity: .8; transition: transform .2s var(--ease), opacity .2s; }
+.sp-egg:hover { opacity: 1; transform: scale(1.15) rotate(-3deg); }
+.sp-party { position: fixed; inset: 0; z-index: 60; pointer-events: none; overflow: hidden; }
+.sp-fly { position: absolute; bottom: -60px; will-change: transform;
+  animation-name: spFly; animation-timing-function: linear; animation-fill-mode: forwards; }
+@keyframes spFly {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-118vh) rotate(420deg); opacity: 0; }
+}
+body.sp-quake { animation: spQuake .4s linear infinite; }
+@keyframes spQuake {
+  0%,100% { transform: translate(0,0); }
+  20% { transform: translate(-6px,3px); }
+  40% { transform: translate(5px,-4px); }
+  60% { transform: translate(-4px,-3px); }
+  80% { transform: translate(4px,4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.sp-quake { animation: none; }
+  .sp-fly { animation-duration: .01s; opacity: 0; }
+  .eye-pupil { transition: none; }
+}
+
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 920px) {
   .nav-links { display: none !important; }

@@ -6,6 +6,7 @@ import { ParticleField } from './fx.jsx';
 import { Nav, Hero, About, KineticStrip } from './sections1.jsx';
 import { Stack, Experience, Education } from './sections2.jsx';
 import { Work, BadgeUnion, Contact } from './sections3.jsx';
+import { OminososHaunt, FlagEgg } from './Eggs.jsx';
 
 export default function App({ heroSrc }) {
   const [lang, setLang] = React.useState(() =>
@@ -46,6 +47,8 @@ export default function App({ heroSrc }) {
         <BadgeUnion />
         <Contact />
       </main>
+      <OminososHaunt />
+      <FlagEgg />
     </L.Provider>
   );
 }
