@@ -13,7 +13,7 @@ export function Nav() {
     const f = () => setScrolled(window.scrollY > 30);
     window.addEventListener('scroll', f); return () => window.removeEventListener('scroll', f);
   }, []);
-  const links = [['about', 'nav_about'], ['stack', 'nav_stack'], ['xp', 'nav_xp'], ['work', 'nav_work'], ['union', 'nav_union'], ['contact', 'nav_contact']];
+  const links = [['about', 'nav_about'], ['stack', 'nav_stack'], ['xp', 'nav_xp'], ['edu', 'nav_edu'], ['work', 'nav_work'], ['union', 'nav_union'], ['contact', 'nav_contact']];
   const go = (id) => { setOpen(false); const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
 
   return (
@@ -173,7 +173,7 @@ function TerminalCard() {
 export function About() {
   const { lang } = useL();
   const stats = [
-    { to: 8, suffix: '+', k: 'stat_years' },
+    { to: 5, suffix: '+', k: 'stat_years' },
     { to: 40, suffix: '+', k: 'stat_proj' },
     { to: 99.9, suffix: '%', k: 'stat_up', dec: 1 },
     { to: 120, suffix: '+', k: 'stat_auto' },

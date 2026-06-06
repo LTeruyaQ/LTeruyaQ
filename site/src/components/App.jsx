@@ -4,7 +4,7 @@ import { L } from '../lib/LangContext.jsx';
 import { BootSequence } from './Boot.jsx';
 import { ParticleField } from './fx.jsx';
 import { Nav, Hero, About, KineticStrip } from './sections1.jsx';
-import { Stack, Experience } from './sections2.jsx';
+import { Stack, Experience, Education } from './sections2.jsx';
 import { Work, BadgeUnion, Contact } from './sections3.jsx';
 
 export default function App({ heroSrc }) {
@@ -41,6 +41,7 @@ export default function App({ heroSrc }) {
         <About />
         <Stack />
         <Experience />
+        <Education />
         <Work />
         <BadgeUnion />
         <Contact />
