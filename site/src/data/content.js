@@ -93,6 +93,10 @@ const STR = {
 export const t = (k, lang) => (STR[k] ? STR[k][lang] : k);
 
 export const DATA = {
+  // Easter egg da bandeira: crédito mostrado na tela enquanto o áudio toca.
+  // Preencha com o autor/origem do seu cover (ex.: 'Hino do SPFC — cover de guitarra por Fulano').
+  // Deixe '' para não mostrar nada. O áudio em si vem de site/public/audio/spfc-anthem.mp3.
+  anthemCredit: '',
   // skills — flat tech board (icon + affinity stars), draggable
   techs: [
     { n: 'C#',         icon: 'devicon-csharp-plain colored',            stars: 5 },

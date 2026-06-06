@@ -8,7 +8,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { startDrone, playAnthem } from '../lib/audio.js';
 import { useL } from '../lib/LangContext.jsx';
-import { t } from '../data/content.js';
+import { t, DATA } from '../data/content.js';
 
 // ── 1) Ominiosos haunt ────────────────────────────────────────────
 const EYES = [
@@ -169,6 +169,7 @@ export function FlagEgg({ enabled = true }) {
               />
             );
           })}
+          {DATA.anthemCredit ? <div className="sp-credit">♪ {DATA.anthemCredit}</div> : null}
         </div>
       )}
     </>
