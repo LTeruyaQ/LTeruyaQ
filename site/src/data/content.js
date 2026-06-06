@@ -58,10 +58,10 @@ const STR = {
   pw_title: { pt: 'Por trás do código.', en: 'Behind the code.' },
   pw_hint:  { pt: '✦ arraste as fotos — bagunce à vontade', en: '✦ drag the photos around — make a mess' },
 
-  // ominiosos (side venture)
-  bu_eye:   { pt: 'side venture', en: 'side venture' },
+  // ominiosos (minha empresa)
+  bu_eye:   { pt: 'onde sonhos viram realidade', en: 'where dreams come true' },
   bu_title: { pt: 'Ominiosos', en: 'Ominiosos' },
-  bu_sub:   { pt: 'Meu estúdio próprio de software — onde eu transformo ideias em produtos, do protótipo ao deploy.', en: 'My own software studio — where I turn ideas into products, from prototype to deploy.' },
+  bu_sub:   { pt: 'A Ominiosos é a minha empresa — onde os sonhos viram realidade. É onde eu transformo meus hobbies em produtos de verdade, usando programação para dar vida às ideias.', en: 'Ominiosos is my company — where dreams come true. It’s where I turn my hobbies into real products, using code to bring ideas to life.' },
   bu_cta:   { pt: 'Conhecer a Ominiosos', en: 'Explore Ominiosos' },
 
   // contact

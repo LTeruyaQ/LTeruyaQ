@@ -106,7 +106,10 @@ export function BadgeUnion() {
                 <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); }} className="btn btn-om" style={{ marginTop: 26 }}>{t('bu_cta', lang)} <span className="arw">→</span></a>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {[['design', 'prototype', 'ship'], ['.NET', 'Flutter', 'AWS'], ['idea', '→', 'product']].map((row, ri) => (
+                {(lang === 'en'
+                  ? [['hobbies', '+', 'code'], ['dreams', '→', 'reality'], ['passion', '→', 'product']]
+                  : [['hobbies', '+', 'código'], ['sonhos', '→', 'realidade'], ['paixão', '→', 'produto']]
+                ).map((row, ri) => (
                   <div key={ri} style={{ display: 'flex', gap: 10 }}>
                     {row.map((c, ci) => (
                       <span key={ci} className="chip" style={{ flex: 1, justifyContent: 'center', fontSize: 12, background: '#0e0e0e' }}>{c}</span>
