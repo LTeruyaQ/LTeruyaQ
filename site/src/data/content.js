@@ -6,6 +6,7 @@ const STR = {
   nav_about:   { pt: 'Sobre',       en: 'About' },
   nav_stack:   { pt: 'Stack',       en: 'Stack' },
   nav_xp:      { pt: 'Trajetória',  en: 'Career' },
+  nav_edu:     { pt: 'Formação',    en: 'Education' },
   nav_work:    { pt: 'Projetos',    en: 'Work' },
   nav_union:   { pt: 'Ominiosos', en: 'Ominiosos' },
   nav_contact: { pt: 'Contato',     en: 'Contact' },
@@ -45,6 +46,11 @@ const STR = {
   xp_eye:   { pt: 'git log --career', en: 'git log --career' },
   xp_title: { pt: 'Trajetória.', en: 'Career.' },
   xp_now:   { pt: 'atual', en: 'now' },
+
+  // education
+  edu_eye:   { pt: 'cat ~/.education', en: 'cat ~/.education' },
+  edu_title: { pt: 'Formação.', en: 'Education.' },
+  edu_now:   { pt: 'em curso', en: 'in progress' },
 
   // work
   work_eye:   { pt: 'projetos',  en: 'featured work' },
@@ -119,6 +125,14 @@ export const DATA = {
       period: 'jun 2021 — jan 2022', tags: ['Suporte', 'Dev'],
       desc: { pt: 'Primeira experiência profissional (estágio): suporte e desenvolvimento, onde aprendi a base do dia a dia de engenharia.',
               en: 'First professional experience (internship): support and development, where I learned the engineering day-to-day.' } },
+  ],
+  edu: [
+    { school: 'FIAP', now: true, period: 'jun 2025 — mar 2026',
+      degree: { pt: 'Pós-graduação · Arquitetura de Software', en: 'Postgraduate · Software Architecture' } },
+    { school: 'FIAP', period: '2021 — 2024',
+      degree: { pt: 'Bacharelado · Sistemas de Informação', en: 'Bachelor’s · Information Systems' } },
+    { school: { pt: 'Inst. Social Nossa Senhora de Fátima', en: 'Inst. Social Nossa Senhora de Fátima' }, period: '2019',
+      degree: { pt: 'Curso Técnico · Tecnologia da Informação', en: 'Technical Course · Information Technology' } },
   ],
   work: [
     { n: { pt: 'Plataforma de Pagamentos', en: 'Payments Platform' }, stack: ['.NET', 'AWS', 'SQL'], tag: { pt: 'Banking', en: 'Banking' },

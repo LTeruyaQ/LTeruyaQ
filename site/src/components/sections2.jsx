@@ -98,3 +98,43 @@ export function Experience() {
     </section>
   );
 }
+
+// ── EDUCATION ─────────────────────────────────────────────────────
+function initials(name) {
+  const words = name.trim().split(/\s+/);
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  const stop = ['de', 'da', 'do', 'das', 'dos', 'e', 'of', 'the'];
+  return words.filter(w => !stop.includes(w.toLowerCase())).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+}
+
+export function Education() {
+  const { lang } = useL();
+  const val = (c) => (typeof c === 'string' ? c : c[lang]);
+  return (
+    <section id="edu" className="sec-pad" style={{ background: 'linear-gradient(180deg, transparent, rgba(143,15,23,.05), transparent)' }}>
+      <div className="wrap">
+        <Reveal><span className="eyebrow">{t('edu_eye', lang)}</span></Reveal>
+        <Reveal delay={1}><h2 className="sec-title"><ScrambleText text={t('edu_title', lang)} /></h2></Reveal>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, marginTop: 44 }}>
+          {DATA.edu.map((e, i) => {
+            const school = val(e.school);
+            return (
+              <Reveal key={i} delay={Math.min(i + 1, 3)}>
+                <div className="card" style={{ padding: '22px 22px', display: 'flex', gap: 16, alignItems: 'flex-start', height: '100%' }}>
+                  <span style={{ flex: '0 0 auto', width: 46, height: 46, border: '1.5px solid var(--red)', borderRadius: 10, display: 'grid', placeItems: 'center', fontFamily: 'var(--mono)', fontWeight: 700, fontSize: 14, color: 'var(--red)', boxShadow: '0 0 14px rgba(225,29,42,.25)' }}>{initials(school)}</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0 }}>
+                    <h3 style={{ fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 18, color: 'var(--white)', lineHeight: 1.2 }}>{school}</h3>
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: 13, color: 'var(--red)', lineHeight: 1.45 }}>{val(e.degree)}</div>
+                    <span className="chip" style={{ alignSelf: 'flex-start', fontSize: 11.5, marginTop: 4, borderColor: e.now ? 'var(--line-red)' : 'var(--line)' }}>
+                      {e.period}{e.now && <span style={{ color: 'var(--red)' }}>· {t('edu_now', lang)}</span>}
+                    </span>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
