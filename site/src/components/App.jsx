@@ -6,13 +6,19 @@ import { ParticleField } from './fx.jsx';
 import { Nav, Hero, About, KineticStrip } from './sections1.jsx';
 import { Stack, Experience, Education } from './sections2.jsx';
 import { Work, BadgeUnion, Contact } from './sections3.jsx';
-import { OminososHaunt, FlagEgg } from './Eggs.jsx';
+import { OminososHaunt, FlagEgg, FunIntro } from './Eggs.jsx';
 
 export default function App({ heroSrc }) {
   const [lang, setLang] = React.useState(() =>
     (typeof localStorage !== 'undefined' && localStorage.getItem('lt_lang')) || 'pt');
   const [booting, setBooting] = React.useState(() =>
     typeof sessionStorage === 'undefined' ? true : !sessionStorage.getItem('lt_booted'));
+  const [fun, setFun] = React.useState(() =>
+    typeof localStorage === 'undefined' ? true : localStorage.getItem('lt_fun') !== '0');
+
+  React.useEffect(() => {
+    localStorage.setItem('lt_fun', fun ? '1' : '0');
+  }, [fun]);
 
   React.useEffect(() => {
     localStorage.setItem('lt_lang', lang);
@@ -35,7 +41,7 @@ export default function App({ heroSrc }) {
       <ParticleField />
       <div className="fx-overlay" />
       <div className="fx-scanbar" />
-      <Nav />
+      <Nav fun={fun} setFun={setFun} />
       <main>
         <Hero heroSrc={heroSrc} />
         <KineticStrip />
@@ -47,8 +53,9 @@ export default function App({ heroSrc }) {
         <BadgeUnion />
         <Contact />
       </main>
-      <OminososHaunt />
-      <FlagEgg />
+      <OminososHaunt enabled={fun} />
+      <FlagEgg enabled={fun} />
+      {!booting && <FunIntro fun={fun} setFun={setFun} />}
     </L.Provider>
   );
 }

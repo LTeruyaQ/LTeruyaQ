@@ -5,7 +5,7 @@ import { t, DATA } from '../data/content.js';
 import { Reveal, Typewriter, Counter, GlitchText, ScrambleText, Marquee } from './fx.jsx';
 
 // ── NAV ───────────────────────────────────────────────────────────
-export function Nav() {
+export function Nav({ fun, setFun }) {
   const { lang, setLang } = useL();
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
@@ -47,8 +47,10 @@ export function Nav() {
             ))}
           </div>
           <button className="btn btn-red cv-btn" style={{ padding: '9px 14px' }}>{t('cv', lang)}</button>
-          <button className="intro-btn" title="replay intro" aria-label="replay intro"
-            onClick={() => window.dispatchEvent(new Event('lt-replay-intro'))}>▶_</button>
+          <button className="intro-btn fun-toggle" aria-pressed={fun}
+            title={t(fun ? 'fun_on_title' : 'fun_off_title', lang)}
+            aria-label={t(fun ? 'fun_on_title' : 'fun_off_title', lang)}
+            onClick={() => setFun(f => !f)}>{fun ? '😄' : '😐'}</button>
           <button className="menu-btn" onClick={() => setOpen(o => !o)} style={{ display: 'none', background: 'transparent', border: '1px solid var(--line)', borderRadius: 7, width: 38, height: 36, color: 'var(--white)', fontSize: 18 }}>{open ? '✕' : '≡'}</button>
         </div>
       </div>

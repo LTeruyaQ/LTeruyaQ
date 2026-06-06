@@ -7,6 +7,8 @@
 //     São Paulo anthem.
 import React, { useState, useEffect, useRef } from 'react';
 import { startDrone, playAnthem } from '../lib/audio.js';
+import { useL } from '../lib/LangContext.jsx';
+import { t } from '../data/content.js';
 
 // ── 1) Ominiosos haunt ────────────────────────────────────────────
 const EYES = [
@@ -15,13 +17,14 @@ const EYES = [
   { x: 71, y: 86 }, { x: 45, y: 16 }, { x: 85, y: 80 }, { x: 31, y: 90 },
 ];
 
-export function OminososHaunt() {
+export function OminososHaunt({ enabled = true }) {
   const [on, setOn] = useState(false);
   const pupils = useRef([]);
   const drone = useRef(null);
 
   // active when the Ominiosos section's center sits near the viewport center
   useEffect(() => {
+    if (!enabled) { setOn(false); return; }
     const check = () => {
       const el = document.getElementById('union');
       if (!el) return;
@@ -37,7 +40,7 @@ export function OminososHaunt() {
       window.removeEventListener('scroll', check);
       window.removeEventListener('resize', check);
     };
-  }, []);
+  }, [enabled]);
 
   // pupils follow the cursor while active
   useEffect(() => {
@@ -98,12 +101,21 @@ const CORNERS = [
   { bottom: '16px', right: '16px' },
 ];
 
-export function FlagEgg() {
+export function FlagEgg({ enabled = true }) {
   // 1/3 chance per page load, in a random corner
   const [found] = useState(() => Math.random() < 1 / 3);
   const [corner] = useState(() => CORNERS[Math.floor(Math.random() * CORNERS.length)]);
   const [party, setParty] = useState(false);
   const audio = useRef(null);
+
+  // turning fun mode off mid-celebration calms everything down
+  useEffect(() => {
+    if (!enabled) {
+      setParty(false);
+      document.body.classList.remove('sp-quake');
+      if (audio.current) { try { audio.current.pause(); } catch (_) {} }
+    }
+  }, [enabled]);
 
   useEffect(() => {
     if (!party) return;
@@ -122,7 +134,7 @@ export function FlagEgg() {
     if (audio.current) { try { audio.current.pause(); } catch (_) {} }
   }, []);
 
-  if (!found) return null;
+  if (!enabled || !found) return null;
 
   return (
     <>
@@ -160,5 +172,35 @@ export function FlagEgg() {
         </div>
       )}
     </>
+  );
+}
+
+// ── Fun-mode intro popup (shown once per session) ─────────────────
+export function FunIntro({ fun, setFun }) {
+  const { lang } = useL();
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (!fun) return;
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('lt_fun_intro')) return;
+    const tid = setTimeout(() => setShow(true), 600);
+    return () => clearTimeout(tid);
+  }, [fun]);
+
+  const close = () => {
+    setShow(false);
+    try { sessionStorage.setItem('lt_fun_intro', '1'); } catch (_) {}
+  };
+
+  if (!show) return null;
+  return (
+    <div className="fun-pop" role="dialog" aria-label={t('fun_title', lang)}>
+      <div className="ttl"><span role="img" aria-hidden="true">😄</span> {t('fun_title', lang)}</div>
+      <p>{t('fun_p', lang)}</p>
+      <div className="row">
+        <button className="ok" onClick={close}>{t('fun_ok', lang)}</button>
+        <button onClick={() => { setFun(false); close(); }}>{t('fun_off_now', lang)}</button>
+      </div>
+    </div>
   );
 }

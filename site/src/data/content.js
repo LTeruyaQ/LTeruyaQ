@@ -12,6 +12,14 @@ const STR = {
   nav_contact: { pt: 'Contato',     en: 'Contact' },
   cv:          { pt: 'Baixar CV',   en: 'Download CV' },
 
+  // fun mode (easter-egg toggle)
+  fun_title:    { pt: 'modo diversão', en: 'fun mode' },
+  fun_on_title: { pt: 'Surpresas: ligadas (clique para desligar)', en: 'Surprises: on (click to turn off)' },
+  fun_off_title:{ pt: 'Surpresas: desligadas (clique para ligar)', en: 'Surprises: off (click to turn on)' },
+  fun_p:        { pt: 'Espalhei algumas surpresas sobre a minha personalidade pelo site. Se preferir não ver essas besteirinhas, é só desligar aqui — fica tudo sério, sem risadinha. 😄', en: 'I hid a few personality surprises around the site. If you’d rather skip the silly bits, just switch them off here — all serious, no giggles. 😄' },
+  fun_ok:       { pt: 'Pode deixar!', en: 'Sounds good!' },
+  fun_off_now:  { pt: 'Desligar', en: 'Turn off' },
+
   // hero
   hero_status: { pt: 'disponível para projetos', en: 'available for projects' },
   hero_l1:     { pt: 'Desenvolvedor', en: 'Fullstack' },

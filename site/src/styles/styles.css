@@ -353,6 +353,27 @@ body.booting { overflow: hidden; }
 .om-card .chip:hover { border-color: var(--om-yellow); color: #fff; }
 .om-card .chip .dot { background: var(--om-yellow); }
 
+/* ── Fun-mode toggle + intro popup ──────────────────────── */
+.intro-btn.fun-toggle { font-size: 17px; line-height: 1; }
+.fun-pop {
+  position: fixed; top: 74px; right: 16px; z-index: 70;
+  width: min(312px, calc(100vw - 32px));
+  background: rgba(14,14,14,.97); border: 1px solid var(--line-red); border-radius: 12px;
+  padding: 16px 16px 14px; box-shadow: 0 24px 60px rgba(0,0,0,.6);
+  font-family: var(--body); animation: funIn .4s var(--ease) both;
+}
+@keyframes funIn { from { opacity: 0; transform: translateY(-8px) scale(.98); } to { opacity: 1; transform: none; } }
+.fun-pop .ttl { display: flex; align-items: center; gap: 8px; font-family: var(--mono);
+  font-size: 12px; color: var(--red); letter-spacing: .08em; text-transform: uppercase; }
+.fun-pop p { color: var(--muted); font-size: 13.5px; line-height: 1.55; margin: 10px 0 14px; }
+.fun-pop .row { display: flex; gap: 8px; }
+.fun-pop button { font-family: var(--mono); font-size: 12px; font-weight: 600; border-radius: 7px;
+  padding: 9px 13px; border: 1px solid var(--line); background: transparent; color: var(--white);
+  transition: all .2s var(--ease); }
+.fun-pop button:hover { border-color: var(--red); transform: translateY(-1px); }
+.fun-pop button.ok { background: var(--red); border-color: var(--red); }
+.fun-pop button.ok:hover { background: var(--red-bright); border-color: var(--red-bright); }
+
 /* ── Easter egg 1: Ominiosos haunt (yellow eyes) ─────────── */
 .haunt { position: fixed; inset: 0; z-index: 40; pointer-events: none;
   opacity: 0; transition: opacity .8s var(--ease); }
