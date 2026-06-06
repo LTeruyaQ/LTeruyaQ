@@ -7,18 +7,22 @@
 //     São Paulo anthem.
 import React, { useState, useEffect, useRef } from 'react';
 import { startDrone, playAnthem } from '../lib/audio.js';
+import { celebrate } from '../lib/confetti.js';
 import { useL } from '../lib/LangContext.jsx';
 import { t, DATA } from '../data/content.js';
 
 // ── 1) Ominiosos haunt ────────────────────────────────────────────
-const EYES = [
-  { x: 12, y: 22 }, { x: 24, y: 70 }, { x: 38, y: 34 }, { x: 50, y: 84 },
-  { x: 62, y: 26 }, { x: 76, y: 64 }, { x: 88, y: 30 }, { x: 17, y: 48 },
-  { x: 71, y: 86 }, { x: 45, y: 16 }, { x: 85, y: 80 }, { x: 31, y: 90 },
-];
+const EYE_COUNT = 14;
+const randomEyes = () =>
+  Array.from({ length: EYE_COUNT }, () => ({
+    x: 5 + Math.random() * 90,   // vw %
+    y: 8 + Math.random() * 84,   // vh %
+    s: 0.7 + Math.random() * 1.1, // scale
+  }));
 
 export function OminososHaunt({ enabled = true }) {
   const [on, setOn] = useState(false);
+  const [eyes, setEyes] = useState(randomEyes);
   const pupils = useRef([]);
   const drone = useRef(null);
 
@@ -42,14 +46,17 @@ export function OminososHaunt({ enabled = true }) {
     };
   }, [enabled]);
 
+  // re-scatter the eyes to fresh random spots each time they open
+  useEffect(() => { if (on) setEyes(randomEyes()); }, [on]);
+
   // pupils follow the cursor while active
   useEffect(() => {
     if (!on) return;
     const move = (e) => {
       const vw = window.innerWidth, vh = window.innerHeight;
       pupils.current.forEach((p, i) => {
-        if (!p) return;
-        const cx = (EYES[i].x / 100) * vw, cy = (EYES[i].y / 100) * vh;
+        if (!p || !eyes[i]) return;
+        const cx = (eyes[i].x / 100) * vw, cy = (eyes[i].y / 100) * vh;
         const dx = e.clientX - cx, dy = e.clientY - cy;
         const len = Math.hypot(dx, dy) || 1;
         const off = Math.min(7, len / 12);
@@ -58,7 +65,7 @@ export function OminososHaunt({ enabled = true }) {
     };
     window.addEventListener('mousemove', move, { passive: true });
     return () => window.removeEventListener('mousemove', move);
-  }, [on]);
+  }, [on, eyes]);
 
   // sinister drone on/off
   useEffect(() => {
@@ -73,10 +80,10 @@ export function OminososHaunt({ enabled = true }) {
 
   return (
     <div className={'haunt' + (on ? ' on' : '')} aria-hidden="true">
-      <div className="haunt-tint" />
-      {EYES.map((e, i) => (
-        <div className="eye" key={i} style={{ left: e.x + '%', top: e.y + '%' }}>
-          <div className="eye-ball" style={{ transitionDelay: (i % 6) * 0.05 + 's' }}>
+      {eyes.map((e, i) => (
+        <div className="eye" key={i}
+          style={{ left: e.x + '%', top: e.y + '%', width: 46 * e.s + 'px', height: 30 * e.s + 'px' }}>
+          <div className="eye-ball" style={{ transitionDelay: (i % 7) * 0.04 + 's' }}>
             <div className="eye-pupil" ref={(el) => (pupils.current[i] = el)} />
           </div>
         </div>
@@ -120,12 +127,14 @@ export function FlagEgg({ enabled = true }) {
   useEffect(() => {
     if (!party) return;
     audio.current = playAnthem();
+    const conf = celebrate({ duration: 7000 });
     document.body.classList.add('sp-quake');
     const tq = setTimeout(() => document.body.classList.remove('sp-quake'), 4200);
     const tp = setTimeout(() => setParty(false), 9000);
     return () => {
       clearTimeout(tq); clearTimeout(tp);
       document.body.classList.remove('sp-quake');
+      if (conf && conf.stop) conf.stop();
     };
   }, [party]);
 
@@ -149,29 +158,11 @@ export function FlagEgg({ enabled = true }) {
           <Flag />
         </button>
       )}
-      {party && (
+      {party && DATA.anthemCredit ? (
         <div className="sp-party" aria-hidden="true">
-          {Array.from({ length: 44 }).map((_, i) => {
-            const left = Math.random() * 100;
-            const dur = 2.4 + Math.random() * 2.6;
-            const delay = Math.random() * 1.6;
-            const scale = 0.6 + Math.random() * 1.3;
-            return (
-              <Flag
-                key={i}
-                className="sp-fly"
-                style={{
-                  left: left + 'vw',
-                  animationDuration: dur + 's',
-                  animationDelay: delay + 's',
-                  transform: `scale(${scale})`,
-                }}
-              />
-            );
-          })}
-          {DATA.anthemCredit ? <div className="sp-credit">♪ {DATA.anthemCredit}</div> : null}
+          <div className="sp-credit">♪ {DATA.anthemCredit}</div>
         </div>
-      )}
+      ) : null}
     </>
   );
 }

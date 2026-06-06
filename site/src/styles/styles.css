@@ -374,12 +374,13 @@ body.booting { overflow: hidden; }
 .fun-pop button.ok { background: var(--red); border-color: var(--red); }
 .fun-pop button.ok:hover { background: var(--red-bright); border-color: var(--red-bright); }
 
-/* ── Easter egg 1: Ominiosos haunt (yellow eyes) ─────────── */
-.haunt { position: fixed; inset: 0; z-index: 40; pointer-events: none;
+/* page content sits above the deep-background eyes / particles */
+.site-content { position: relative; z-index: 1; }
+
+/* ── Easter egg 1: Ominiosos haunt (yellow eyes, deep background) ── */
+.haunt { position: fixed; inset: 0; z-index: -1; pointer-events: none;
   opacity: 0; transition: opacity .8s var(--ease); }
 .haunt.on { opacity: 1; }
-.haunt-tint { position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center, rgba(20,16,0,0) 32%, rgba(8,7,0,.6) 100%); }
 .eye { position: absolute; width: 46px; height: 30px; transform: translate(-50%,-50%); }
 .eye-ball { position: absolute; inset: 0; border-radius: 50%;
   background: radial-gradient(circle at 50% 45%, #fff4ad 0%, #ffd000 42%, #9c7400 100%);
@@ -401,14 +402,7 @@ body.booting { overflow: hidden; }
 .sp-egg { position: fixed; z-index: 45; padding: 0; border: 0; background: transparent;
   cursor: pointer; opacity: .8; transition: transform .2s var(--ease), opacity .2s; }
 .sp-egg:hover { opacity: 1; transform: scale(1.15) rotate(-3deg); }
-.sp-party { position: fixed; inset: 0; z-index: 60; pointer-events: none; overflow: hidden; }
-.sp-fly { position: absolute; bottom: -60px; will-change: transform;
-  animation-name: spFly; animation-timing-function: linear; animation-fill-mode: forwards; }
-@keyframes spFly {
-  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateY(-118vh) rotate(420deg); opacity: 0; }
-}
+.sp-party { position: fixed; inset: 0; z-index: 66; pointer-events: none; overflow: hidden; }
 .sp-credit { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
   font-family: var(--mono); font-size: 12px; color: var(--white);
   background: rgba(10,10,10,.8); border: 1px solid var(--line-red); border-radius: 999px;
@@ -424,7 +418,6 @@ body.sp-quake { animation: spQuake .4s linear infinite; }
 }
 @media (prefers-reduced-motion: reduce) {
   body.sp-quake { animation: none; }
-  .sp-fly { animation-duration: .01s; opacity: 0; }
   .eye-pupil { transition: none; }
 }
 

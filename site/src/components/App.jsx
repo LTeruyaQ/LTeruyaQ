@@ -38,22 +38,24 @@ export default function App({ heroSrc }) {
   return (
     <L.Provider value={{ lang, setLang }}>
       {booting && <BootSequence onDone={endBoot} />}
+      <OminososHaunt enabled={fun} />
       <ParticleField />
       <div className="fx-overlay" />
       <div className="fx-scanbar" />
-      <Nav fun={fun} setFun={setFun} />
-      <main>
-        <Hero heroSrc={heroSrc} />
-        <KineticStrip />
-        <About />
-        <Stack />
-        <Experience />
-        <Education />
-        <Work />
-        <BadgeUnion />
-        <Contact />
-      </main>
-      <OminososHaunt enabled={fun} />
+      <div className="site-content">
+        <Nav fun={fun} setFun={setFun} />
+        <main>
+          <Hero heroSrc={heroSrc} />
+          <KineticStrip />
+          <About />
+          <Stack />
+          <Experience />
+          <Education />
+          <Work />
+          <BadgeUnion />
+          <Contact />
+        </main>
+      </div>
       <FlagEgg enabled={fun} />
       {!booting && <FunIntro fun={fun} setFun={setFun} />}
     </L.Provider>
