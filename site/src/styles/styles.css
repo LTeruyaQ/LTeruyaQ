@@ -22,7 +22,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   background: var(--bg);
   color: var(--white);
@@ -352,6 +352,69 @@ body.booting { overflow: hidden; }
   color: #0a0a0a; box-shadow: 0 8px 30px rgba(255,195,0,.45); transform: translateY(-2px); }
 .om-card .chip:hover { border-color: var(--om-yellow); color: #fff; }
 .om-card .chip .dot { background: var(--om-yellow); }
+
+/* ── Fun-mode toggle + intro toast (subtle) ─────────────── */
+.intro-btn.fun-toggle { font-size: 17px; line-height: 1; }
+.fun-pop {
+  position: fixed; top: 72px; right: 14px; z-index: 70;
+  display: flex; align-items: flex-start; gap: 8px;
+  width: min(232px, calc(100vw - 28px));
+  background: rgba(12,12,12,.9); border: 1px solid var(--line); border-radius: 9px;
+  padding: 9px 9px 9px 11px; box-shadow: 0 12px 32px rgba(0,0,0,.45);
+  backdrop-filter: blur(8px); animation: funIn .35s var(--ease) both;
+}
+@keyframes funIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.fun-msg { font-family: var(--mono); font-size: 11px; line-height: 1.5; color: var(--muted); }
+.fun-x { flex: 0 0 auto; width: 18px; height: 18px; border: 0; border-radius: 5px;
+  background: transparent; color: var(--faint); font-size: 15px; line-height: 1;
+  display: grid; place-items: center; transition: color .2s; }
+.fun-x:hover { color: var(--white); }
+
+/* page content sits above the deep-background eyes / particles */
+.site-content { position: relative; z-index: 1; }
+
+/* ── Easter egg 1: Ominiosos haunt (yellow eyes, deep background) ── */
+.haunt { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  opacity: 0; transition: opacity .8s var(--ease); }
+.haunt.on { opacity: 1; }
+.eye { position: absolute; width: 54px; height: 30px; transform: translate(-50%,-50%); }
+.eye-ball { position: absolute; inset: 0; transform: scaleY(0); transform-origin: center;
+  transition: transform .5s var(--ease); filter: drop-shadow(0 0 9px rgba(255,208,0,.7)); }
+.haunt.on .eye-ball { transform: scaleY(1); }
+.eye-shape { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.eye-pupil { position: absolute; left: 50%; top: 50%; width: 26%; height: 66%;
+  border-radius: 50%; background: #0a0a0a; transform: translate(-50%,-50%);
+  box-shadow: 0 0 6px rgba(0,0,0,.85); transition: transform .08s linear; }
+
+/* ── Easter egg 2: São Paulo tricolor flag ──────────────── */
+.sp-flag { display: block; width: 54px; height: 36px; border-radius: 3px;
+  overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.18); }
+.sp-flag i { display: block; height: 33.34%; }
+.sp-flag .r { background: #e11d2a; }
+.sp-flag .k { background: #0a0a0a; }
+.sp-flag .w { background: #f4f4f5; }
+.sp-egg { position: fixed; z-index: 45; padding: 0; border: 0; background: transparent;
+  cursor: pointer; opacity: .8; transition: transform .2s var(--ease), opacity .2s; }
+.sp-egg:hover { opacity: 1; transform: scale(1.15) rotate(-3deg); }
+.sp-party { position: fixed; inset: 0; z-index: 66; pointer-events: none; overflow: hidden; }
+.sp-credit { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 12px; color: var(--white);
+  background: rgba(10,10,10,.8); border: 1px solid var(--line-red); border-radius: 999px;
+  padding: 7px 14px; white-space: nowrap; max-width: 92vw; overflow: hidden;
+  text-overflow: ellipsis; box-shadow: 0 6px 20px rgba(0,0,0,.5); }
+body.sp-quake { animation: spQuake .4s linear infinite; }
+@keyframes spQuake {
+  0%,100% { transform: translate(0,0); }
+  20% { transform: translate(-3px,2px); }
+  40% { transform: translate(3px,-2px); }
+  60% { transform: translate(-2px,-2px); }
+  80% { transform: translate(2px,2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.sp-quake { animation: none; }
+  .eye-pupil { transition: none; }
+}
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 920px) {

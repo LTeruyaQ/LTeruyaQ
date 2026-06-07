@@ -12,6 +12,14 @@ const STR = {
   nav_contact: { pt: 'Contato',     en: 'Contact' },
   cv:          { pt: 'Baixar CV',   en: 'Download CV' },
 
+  // fun mode (easter-egg toggle)
+  fun_title:    { pt: 'modo diversão', en: 'fun mode' },
+  fun_on_title: { pt: 'Surpresas: ligadas (clique para desligar)', en: 'Surprises: on (click to turn off)' },
+  fun_off_title:{ pt: 'Surpresas: desligadas (clique para ligar)', en: 'Surprises: off (click to turn on)' },
+  fun_p:        { pt: 'tem umas brincadeiras escondidas por aqui 😄 desligue no 😄/😐 acima se preferir.', en: 'a few hidden surprises live here 😄 turn them off with 😄/😐 above if you prefer.' },
+  fun_ok:       { pt: 'Pode deixar!', en: 'Sounds good!' },
+  fun_off_now:  { pt: 'Desligar', en: 'Turn off' },
+
   // hero
   hero_status: { pt: 'disponível para projetos', en: 'available for projects' },
   hero_l1:     { pt: 'Desenvolvedor', en: 'Fullstack' },
@@ -85,6 +93,10 @@ const STR = {
 export const t = (k, lang) => (STR[k] ? STR[k][lang] : k);
 
 export const DATA = {
+  // Easter egg da bandeira: crédito mostrado na tela enquanto o áudio toca.
+  // Preencha com o autor/origem do seu cover (ex.: 'Hino do SPFC — cover de guitarra por Fulano').
+  // Deixe '' para não mostrar nada. O áudio em si vem de site/public/audio/spfc-anthem.mp3.
+  anthemCredit: '',
   // skills — flat tech board (icon + affinity stars), draggable
   techs: [
     { n: 'C#',         icon: 'devicon-csharp-plain colored',            stars: 5 },
