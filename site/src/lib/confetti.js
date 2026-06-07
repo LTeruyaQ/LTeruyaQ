@@ -26,30 +26,31 @@ export function celebrate({ duration = 7000 } = {}) {
   resize();
   window.addEventListener('resize', resize);
 
-  const MAX = reduce ? 50 : 110;   // keep it sparse, not bloated
-  const G = 0.045;                 // very gentle gravity → slow drift down
-  const TERM = 2.1;                // low terminal velocity
+  const MAX = reduce ? 90 : 230;   // plenty, but all gentle
+  const G = 0.03;                  // very soft gravity → slow snow-like fall
   const parts = [];
 
   const rnd = (a, b) => a + Math.random() * (b - a);
   const pick = () => COLORS[(Math.random() * COLORS.length) | 0];
 
-  function spawn() {
+  // scatter=true distributes pieces across the whole height (no top "wave")
+  function spawn(scatter) {
     if (parts.length >= MAX) return;
     const flag = Math.random() < 0.3;
     parts.push({
-      x: rnd(0, W), y: rnd(-40, -10),
-      vx: rnd(-0.5, 0.5), vy: rnd(0.3, 1),
-      rot: rnd(0, Math.PI * 2), vrot: rnd(-0.12, 0.12),
+      x: rnd(0, W), y: scatter ? rnd(-H * 0.2, H) : rnd(-40, -10),
+      vx: rnd(-0.4, 0.4), vy: rnd(0.2, 0.6),
+      vyMax: rnd(0.8, 1.5),         // per-piece terminal → all slow, no fast leva
+      rot: rnd(0, Math.PI * 2), vrot: rnd(-0.1, 0.1),
       w: flag ? rnd(12, 17) : rnd(6, 9),
       h: flag ? rnd(8, 11) : rnd(4, 7),
       color: pick(), flag,
-      wob: rnd(0, Math.PI * 2), wobSp: rnd(0.02, 0.06), sway: rnd(0.3, 0.8),
+      wob: rnd(0, Math.PI * 2), wobSp: rnd(0.02, 0.05), sway: rnd(0.3, 0.8),
     });
   }
 
-  // a light sprinkle to begin, then a steady gentle stream for `duration`
-  for (let i = 0; i < (reduce ? 14 : 26); i++) spawn();
+  // start already distributed across the screen, then a steady gentle stream
+  for (let i = 0; i < (reduce ? 40 : 90); i++) spawn(true);
 
   const start = Date.now();
   let raf = 0, stopped = false;
@@ -57,12 +58,12 @@ export function celebrate({ duration = 7000 } = {}) {
   function frame() {
     if (stopped) return;
     const elapsed = Date.now() - start;
-    if (!reduce && elapsed < duration) spawn(); // one piece per frame → sparse
+    if (!reduce && elapsed < duration) { spawn(false); spawn(false); }
 
     ctx.clearRect(0, 0, W, H);
     for (let i = parts.length - 1; i >= 0; i--) {
       const p = parts[i];
-      p.vy = Math.min(p.vy + G, TERM);
+      p.vy = Math.min(p.vy + G, p.vyMax);
       p.vx *= 0.99;
       p.wob += p.wobSp;
       p.x += p.vx + Math.sin(p.wob) * p.sway;

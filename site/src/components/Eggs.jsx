@@ -12,13 +12,31 @@ import { useL } from '../lib/LangContext.jsx';
 import { t, DATA } from '../data/content.js';
 
 // ── 1) Ominiosos haunt ────────────────────────────────────────────
-const EYE_COUNT = 32;
-const randomEyes = () =>
-  Array.from({ length: EYE_COUNT }, () => ({
-    x: 3 + Math.random() * 94,   // vw %
-    y: 6 + Math.random() * 88,   // vh %
-    s: 0.55 + Math.random() * 1.05, // scale
-  }));
+const EYE_COUNT = 30;
+// generate scattered eyes that never overlap (AABB rejection sampling)
+const randomEyes = () => {
+  const vw = (typeof window !== 'undefined' && window.innerWidth) || 1200;
+  const vh = (typeof window !== 'undefined' && window.innerHeight) || 800;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const eyes = [];
+  let attempts = 0;
+  while (eyes.length < EYE_COUNT && attempts < EYE_COUNT * 80) {
+    attempts++;
+    const s = 0.55 + Math.random() * 1.05;
+    const x = rnd(3, 97), y = rnd(6, 94);          // viewport %
+    const px = (x / 100) * vw, py = (y / 100) * vh; // px
+    const w = 50 * s, h = 30 * s;
+    const ok = eyes.every((e) => {
+      const ex = (e.x / 100) * vw, ey = (e.y / 100) * vh;
+      const gapX = (w + 50 * e.s) / 2 + 16;
+      const gapY = (h + 30 * e.s) / 2 + 12;
+      // not overlapping if separated on at least one axis
+      return Math.abs(px - ex) > gapX || Math.abs(py - ey) > gapY;
+    });
+    if (ok) eyes.push({ x, y, s });
+  }
+  return eyes;
+};
 
 export function OminososHaunt({ enabled = true }) {
   const [on, setOn] = useState(false);
