@@ -12,12 +12,12 @@ import { useL } from '../lib/LangContext.jsx';
 import { t, DATA } from '../data/content.js';
 
 // ── 1) Ominiosos haunt ────────────────────────────────────────────
-const EYE_COUNT = 14;
+const EYE_COUNT = 32;
 const randomEyes = () =>
   Array.from({ length: EYE_COUNT }, () => ({
-    x: 5 + Math.random() * 90,   // vw %
-    y: 8 + Math.random() * 84,   // vh %
-    s: 0.7 + Math.random() * 1.1, // scale
+    x: 3 + Math.random() * 94,   // vw %
+    y: 6 + Math.random() * 88,   // vh %
+    s: 0.55 + Math.random() * 1.05, // scale
   }));
 
 export function OminososHaunt({ enabled = true }) {
@@ -92,10 +92,10 @@ export function OminososHaunt({ enabled = true }) {
       </svg>
       {eyes.map((e, i) => (
         <div className="eye" key={i}
-          style={{ left: e.x + '%', top: e.y + '%', width: 54 * e.s + 'px', height: 30 * e.s + 'px' }}>
-          <div className="eye-ball" style={{ transitionDelay: (i % 7) * 0.04 + 's' }}>
+          style={{ left: e.x + '%', top: e.y + '%', width: 50 * e.s + 'px', height: 30 * e.s + 'px' }}>
+          <div className="eye-ball" style={{ transitionDelay: (i % 8) * 0.03 + 's' }}>
             <svg className="eye-shape" viewBox="0 0 100 56" preserveAspectRatio="none">
-              <path d="M0,28 Q50,0 100,28 Q50,56 0,28 Z" fill="url(#omEyeGrad)" />
+              <path d="M2,28 C 26,9 74,9 98,28 C 74,47 26,47 2,28 Z" fill="url(#omEyeGrad)" />
             </svg>
             <div className="eye-pupil" ref={(el) => (pupils.current[i] = el)} />
           </div>
@@ -140,10 +140,10 @@ export function FlagEgg({ enabled = true }) {
   useEffect(() => {
     if (!party) return;
     audio.current = playAnthem();
-    const conf = celebrate({ duration: 7000 });
+    const conf = celebrate({ duration: 9000 });
     document.body.classList.add('sp-quake');
-    const tq = setTimeout(() => document.body.classList.remove('sp-quake'), 4200);
-    const tp = setTimeout(() => setParty(false), 9000);
+    const tq = setTimeout(() => document.body.classList.remove('sp-quake'), 2600);
+    const tp = setTimeout(() => setParty(false), 11500);
     return () => {
       clearTimeout(tq); clearTimeout(tp);
       document.body.classList.remove('sp-quake');
@@ -199,13 +199,9 @@ export function FunIntro({ fun, setFun }) {
 
   if (!show) return null;
   return (
-    <div className="fun-pop" role="dialog" aria-label={t('fun_title', lang)}>
-      <div className="ttl"><span role="img" aria-hidden="true">😄</span> {t('fun_title', lang)}</div>
-      <p>{t('fun_p', lang)}</p>
-      <div className="row">
-        <button className="ok" onClick={close}>{t('fun_ok', lang)}</button>
-        <button onClick={() => { setFun(false); close(); }}>{t('fun_off_now', lang)}</button>
-      </div>
+    <div className="fun-pop" role="status">
+      <span className="fun-msg">{t('fun_p', lang)}</span>
+      <button className="fun-x" onClick={close} aria-label={t('fun_ok', lang)} title={t('fun_ok', lang)}>×</button>
     </div>
   );
 }

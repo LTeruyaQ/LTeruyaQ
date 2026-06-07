@@ -26,9 +26,9 @@ export function celebrate({ duration = 7000 } = {}) {
   resize();
   window.addEventListener('resize', resize);
 
-  const MAX = reduce ? 140 : 620;
-  const G = 0.12;       // gentle gravity → floaty fall
-  const TERM = 5.5;     // terminal velocity
+  const MAX = reduce ? 50 : 110;   // keep it sparse, not bloated
+  const G = 0.045;                 // very gentle gravity → slow drift down
+  const TERM = 2.1;                // low terminal velocity
   const parts = [];
 
   const rnd = (a, b) => a + Math.random() * (b - a);
@@ -36,20 +36,20 @@ export function celebrate({ duration = 7000 } = {}) {
 
   function spawn() {
     if (parts.length >= MAX) return;
-    const flag = Math.random() < 0.32;
+    const flag = Math.random() < 0.3;
     parts.push({
-      x: rnd(0, W), y: rnd(-60, -10),
-      vx: rnd(-1.2, 1.2), vy: rnd(1, 3),
-      rot: rnd(0, Math.PI * 2), vrot: rnd(-0.25, 0.25),
-      w: flag ? rnd(13, 19) : rnd(6, 10),
-      h: flag ? rnd(9, 13) : rnd(4, 8),
+      x: rnd(0, W), y: rnd(-40, -10),
+      vx: rnd(-0.5, 0.5), vy: rnd(0.3, 1),
+      rot: rnd(0, Math.PI * 2), vrot: rnd(-0.12, 0.12),
+      w: flag ? rnd(12, 17) : rnd(6, 9),
+      h: flag ? rnd(8, 11) : rnd(4, 7),
       color: pick(), flag,
-      wob: rnd(0, Math.PI * 2), wobSp: rnd(0.04, 0.1), sway: rnd(0.4, 1.1),
+      wob: rnd(0, Math.PI * 2), wobSp: rnd(0.02, 0.06), sway: rnd(0.3, 0.8),
     });
   }
 
-  // dense initial fall across the top, then keep topping up for `duration`
-  for (let i = 0; i < (reduce ? 70 : 170); i++) spawn();
+  // a light sprinkle to begin, then a steady gentle stream for `duration`
+  for (let i = 0; i < (reduce ? 14 : 26); i++) spawn();
 
   const start = Date.now();
   let raf = 0, stopped = false;
@@ -57,7 +57,7 @@ export function celebrate({ duration = 7000 } = {}) {
   function frame() {
     if (stopped) return;
     const elapsed = Date.now() - start;
-    if (!reduce && elapsed < duration) { for (let i = 0; i < 5; i++) spawn(); }
+    if (!reduce && elapsed < duration) spawn(); // one piece per frame → sparse
 
     ctx.clearRect(0, 0, W, H);
     for (let i = parts.length - 1; i >= 0; i--) {

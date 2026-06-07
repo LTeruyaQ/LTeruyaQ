@@ -22,7 +22,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   background: var(--bg);
   color: var(--white);
@@ -353,32 +353,28 @@ body.booting { overflow: hidden; }
 .om-card .chip:hover { border-color: var(--om-yellow); color: #fff; }
 .om-card .chip .dot { background: var(--om-yellow); }
 
-/* ── Fun-mode toggle + intro popup ──────────────────────── */
+/* ── Fun-mode toggle + intro toast (subtle) ─────────────── */
 .intro-btn.fun-toggle { font-size: 17px; line-height: 1; }
 .fun-pop {
-  position: fixed; top: 74px; right: 16px; z-index: 70;
-  width: min(312px, calc(100vw - 32px));
-  background: rgba(14,14,14,.97); border: 1px solid var(--line-red); border-radius: 12px;
-  padding: 16px 16px 14px; box-shadow: 0 24px 60px rgba(0,0,0,.6);
-  font-family: var(--body); animation: funIn .4s var(--ease) both;
+  position: fixed; top: 72px; right: 14px; z-index: 70;
+  display: flex; align-items: flex-start; gap: 8px;
+  width: min(232px, calc(100vw - 28px));
+  background: rgba(12,12,12,.9); border: 1px solid var(--line); border-radius: 9px;
+  padding: 9px 9px 9px 11px; box-shadow: 0 12px 32px rgba(0,0,0,.45);
+  backdrop-filter: blur(8px); animation: funIn .35s var(--ease) both;
 }
-@keyframes funIn { from { opacity: 0; transform: translateY(-8px) scale(.98); } to { opacity: 1; transform: none; } }
-.fun-pop .ttl { display: flex; align-items: center; gap: 8px; font-family: var(--mono);
-  font-size: 12px; color: var(--red); letter-spacing: .08em; text-transform: uppercase; }
-.fun-pop p { color: var(--muted); font-size: 13.5px; line-height: 1.55; margin: 10px 0 14px; }
-.fun-pop .row { display: flex; gap: 8px; }
-.fun-pop button { font-family: var(--mono); font-size: 12px; font-weight: 600; border-radius: 7px;
-  padding: 9px 13px; border: 1px solid var(--line); background: transparent; color: var(--white);
-  transition: all .2s var(--ease); }
-.fun-pop button:hover { border-color: var(--red); transform: translateY(-1px); }
-.fun-pop button.ok { background: var(--red); border-color: var(--red); }
-.fun-pop button.ok:hover { background: var(--red-bright); border-color: var(--red-bright); }
+@keyframes funIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.fun-msg { font-family: var(--mono); font-size: 11px; line-height: 1.5; color: var(--muted); }
+.fun-x { flex: 0 0 auto; width: 18px; height: 18px; border: 0; border-radius: 5px;
+  background: transparent; color: var(--faint); font-size: 15px; line-height: 1;
+  display: grid; place-items: center; transition: color .2s; }
+.fun-x:hover { color: var(--white); }
 
 /* page content sits above the deep-background eyes / particles */
 .site-content { position: relative; z-index: 1; }
 
 /* ── Easter egg 1: Ominiosos haunt (yellow eyes, deep background) ── */
-.haunt { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+.haunt { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
   opacity: 0; transition: opacity .8s var(--ease); }
 .haunt.on { opacity: 1; }
 .eye { position: absolute; width: 54px; height: 30px; transform: translate(-50%,-50%); }
@@ -410,10 +406,10 @@ body.booting { overflow: hidden; }
 body.sp-quake { animation: spQuake .4s linear infinite; }
 @keyframes spQuake {
   0%,100% { transform: translate(0,0); }
-  20% { transform: translate(-6px,3px); }
-  40% { transform: translate(5px,-4px); }
-  60% { transform: translate(-4px,-3px); }
-  80% { transform: translate(4px,4px); }
+  20% { transform: translate(-3px,2px); }
+  40% { transform: translate(3px,-2px); }
+  60% { transform: translate(-2px,-2px); }
+  80% { transform: translate(2px,2px); }
 }
 @media (prefers-reduced-motion: reduce) {
   body.sp-quake { animation: none; }

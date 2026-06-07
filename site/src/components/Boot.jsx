@@ -67,14 +67,20 @@ export function BootSequence({ onDone }) {
   // auto-scroll terminal body
   useEffect(() => { const b = bodyRef.current; if (b) b.scrollTop = b.scrollHeight; }, [lines, cur]);
 
-  const finish = () => { document.body.classList.remove('booting'); onDone(); };
+  const done = useRef(false);
+  const finish = () => {
+    if (done.current) return;
+    done.current = true;
+    document.body.classList.remove('booting');
+    onDone();
+  };
   const skip = () => {
     canc.current = true; timers.current.forEach(clearTimeout);
-    setFading(true); setTimeout(finish, 320);
+    setFading(true); setTimeout(finish, 280);
   };
 
   return (
-    <div className={'boot' + (fading ? ' out' : '')}>
+    <div className={'boot' + (fading ? ' out' : '')} onClick={skip}>
       <div className="boot-grid" />
       <div className="boot-term">
         <div className="boot-bar">
@@ -97,7 +103,7 @@ export function BootSequence({ onDone }) {
           )}
         </div>
       </div>
-      <button className="boot-skip" onClick={skip}>skip intro →</button>
+      <button type="button" className="boot-skip" onClick={(e) => { e.stopPropagation(); skip(); }}>skip intro →</button>
     </div>
   );
 }
